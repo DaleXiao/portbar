@@ -3,6 +3,7 @@
 PortBar is a macOS menu bar app for seeing which local ports are currently used by apps and processes.
 
 It scans local sockets with the system `lsof` command and shows TCP listening ports plus bound UDP ports in a compact popover.
+<img width="403" height="367" alt="iShot_2026-06-29_19 32 26" src="https://github.com/user-attachments/assets/c4a7198d-bf79-4868-a952-c39d5d3b3299" />
 
 ## Build
 
