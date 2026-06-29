@@ -517,11 +517,7 @@ private struct SettingsMenuPresenter: NSViewRepresentable {
     }
 
     @objc private func showAbout(_ item: NSMenuItem) {
-      NSApp.activate(ignoringOtherApps: true)
-      NSApp.orderFrontStandardAboutPanel(options: [
-        .applicationName: AppInfo.name,
-        .applicationVersion: AppInfo.shortVersion
-      ])
+      NotificationCenter.default.post(name: .portBarShowAboutPanel, object: nil)
     }
 
     private func showErrorAlert(message: String) {

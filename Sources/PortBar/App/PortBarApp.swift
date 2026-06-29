@@ -23,6 +23,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     applyAppearance()
     observeStore()
     observePreferences()
+    observeAppCommands()
   }
 
   private func configureStatusItem() {
@@ -73,6 +74,15 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
       .store(in: &cancellables)
   }
 
+  private func observeAppCommands() {
+    NotificationCenter.default.publisher(for: .portBarShowAboutPanel)
+      .receive(on: RunLoop.main)
+      .sink { [weak self] _ in
+        self?.showAboutPanel()
+      }
+      .store(in: &cancellables)
+  }
+
   @objc private func togglePopover(_ sender: Any?) {
     if popover?.isShown == true {
       closePopover()
@@ -95,6 +105,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
   private func closePopover() {
     popover?.close()
     statusItem.button?.highlight(false)
+  }
+
+  private func showAboutPanel() {
+    closePopover()
+    NSApp.activate(ignoringOtherApps: true)
+    NSApp.orderFrontStandardAboutPanel(options: [
+      .applicationName: AppInfo.name,
+      .applicationVersion: AppInfo.shortVersion
+    ])
+    NSApp.windows.first { $0.title == "About \(AppInfo.name)" }?.makeKeyAndOrderFront(nil)
   }
 
   private func updateStatusItemTitle() {

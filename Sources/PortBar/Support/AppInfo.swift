@@ -11,3 +11,7 @@ enum AppInfo {
     shortVersion
   }
 }
+
+extension Notification.Name {
+  static let portBarShowAboutPanel = Notification.Name("portBarShowAboutPanel")
+}
