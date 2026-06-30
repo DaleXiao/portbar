@@ -155,7 +155,7 @@ private final class StatusItemIconAnimator: NSResponder {
   func attach(to button: NSStatusBarButton, image: NSImage) {
     self.button = button
     let size = normalizedSize(from: image.size)
-    baseImage = makeGlobeFrame(size: size, phase: 0)
+    baseImage = image
     animationFrames = makeAnimationFrames(size: size)
     button.image = baseImage
     installTrackingArea(on: button)
